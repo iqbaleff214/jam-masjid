@@ -42,7 +42,7 @@ class Ustadz extends CI_Controller
             $this->__add();
         } else {
             $data['title']  = "Tambah Ustadz";
-            $data['basic']  = $this->db->get_where('tb_pengurus', ['username' => $_SESSION['username']])->row_array();
+            $data['basic']  = $this->db->get('tb_pengurus')->row_array();
 
             $this->load->view('layouts/admin/header', $data);
             $this->load->view('layouts/admin/sidebar');
@@ -59,7 +59,7 @@ class Ustadz extends CI_Controller
             $this->__edit($id);
         } else {
             $data['title']  = "Edit Ustadz";
-            $data['basic']  = $this->db->get_where('tb_pengurus', ['username' => $_SESSION['username']])->row_array();
+            $data['basic']  = $this->db->get('tb_pengurus')->row_array();
             $data['ustadz'] = $this->db->get_where('tb_ustadz', ['id_ustadz' => $id])->row_array();
 
             $this->load->view('layouts/admin/header', $data);

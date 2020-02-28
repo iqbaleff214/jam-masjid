@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <a class="btn btn-round btn-sm float-right btn-primary" href="<?php echo base_url('ustadz/add'); ?>">
+                        <a class="btn btn-round btn-sm float-right btn-primary" href="<?php echo base_url('kajian/add'); ?>">
                             <i class="material-icons">add_circle</i>
                             &nbsp;Tambah
                         </a>
