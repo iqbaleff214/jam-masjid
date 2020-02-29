@@ -22,3 +22,9 @@ function pesan($text, $tipe)
         "<script> $(document).ready(function() {Swal.fire('" . $text . "', '', '" . $tipe . "')});</script>"
     );
 }
+
+function pekan($date)
+{
+    $firstOfMonth = strtotime(date("Y-m-01", $date));
+    return intval(date("W", $date)) - intval(date("W", $firstOfMonth)) + 1;
+}

@@ -16,38 +16,37 @@
                                 <thead class=" text-primary">
                                     <th class="text-center">#</th>
                                     <th>Tanggal</th>
-                                    <th>Nama</th>
-                                    <th>No. Telp</th>
-                                    <th>Alamat</th>
+                                    <th>Ustadz</th>
+                                    <th>Waktu</th>
+                                    <th>Hari</th>
+                                    <th>Pekan</th>
                                     <th></th>
                                 </thead>
                                 <tbody>
                                     <?php $no = 0; ?>
-                                    <?php foreach ($ustadz as $ust) : ?>
+                                    <?php $hari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']; ?>
+                                    <?php foreach ($kajian as $kjn) : ?>
                                         <tr>
                                             <td class="text-center"><?php echo ++$no; ?></td>
-                                            <td class=" table-shopping">
-                                                <div class="img-container">
-                                                    <img src="<?php echo base_url('assets/img/ustadz/') . $ust['foto']; ?>" rel="nofollow" alt="...">
-                                                </div>
-                                            </td>
-                                            <td><?php echo $ust['nama']; ?></td>
-                                            <td><?php echo $ust['no_telp']; ?></td>
-                                            <td><?php echo $ust['alamat']; ?></td>
+                                            <td><?php echo date('d/M/Y', $kjn['tanggal']); ?></td>
+                                            <td><?php echo $kjn['nama']; ?></td>
+                                            <td><?php echo $kjn['waktu']; ?></td>
+                                            <td><?php echo $hari[date('N', $kjn['tanggal'])]; ?></td>
+                                            <td><?php echo pekan($kjn['tanggal']); ?></td>
                                             <td class="td-actions text-right">
-                                                <a href="<?php echo base_url('ustadz/show/') . $ust['id_ustadz']; ?>" rel="tooltip" class="btn btn-info">
+                                                <a href="<?php echo base_url('kajian/show/') . $kjn['id_kajian']; ?>" rel="tooltip" class="btn btn-info">
                                                     <i class="material-icons">person</i>
                                                 </a>
-                                                <a href="<?php echo base_url('ustadz/edit/') . $ust['id_ustadz']; ?>" rel="tooltip" class="btn btn-success">
+                                                <a href="<?php echo base_url('kajian/edit/') . $kjn['id_kajian']; ?>" rel="tooltip" class="btn btn-success">
                                                     <i class="material-icons">edit</i>
                                                 </a>
-                                                <button type="button" rel="tooltip" class="btn btn-danger" data-toggle="modal" data-target="#<?php echo 'hapus' . $ust['id_ustadz']; ?>">
+                                                <button type="button" rel="tooltip" class="btn btn-danger" data-toggle="modal" data-target="#<?php echo 'hapus' . $kjn['id_kajian']; ?>">
                                                     <i class="material-icons">close</i>
                                                 </button>
 
                                             </td>
                                             <!-- Hapus Modal -->
-                                            <div class="modal fade" id="<?php echo 'hapus' . $ust['id_ustadz']; ?>" tabindex="-1" role="dialog" aria-labelledby="hapusLabel" aria-hidden="true">
+                                            <div class="modal fade" id="<?php echo 'hapus' . $kjn['id_kajian']; ?>" tabindex="-1" role="dialog" aria-labelledby="hapusLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -61,7 +60,7 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                            <a href="<?php echo base_url('ustadz/delete/') . $ust['id_ustadz']; ?>" class="btn btn-primary">Iya</a>
+                                                            <a href="<?php echo base_url('kajian/delete/') . $kjn['id_kajian']; ?>" class="btn btn-primary">Iya</a>
                                                         </div>
                                                     </div>
                                                 </div>

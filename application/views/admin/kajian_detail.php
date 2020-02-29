@@ -33,88 +33,43 @@
                                 <i class="material-icons">arrow_back</i>
                                 &nbsp;Kembali
                             </a>
-                            <h3 class="card-title"><?php echo ($title == "Tambah Kajian") ? 'Kajian Baru' : 'Edit Kajian ' . $ustadz['nama']; ?></h3>
+                            <h3 class="card-title"><?php echo ($title == "Tambah Kajian") ? 'Kajian Baru' : 'Edit Kajian ' . $kajian['nama']; ?></h3>
                             <!-- <p class="card-category">Complete your profile</p> -->
                         </div>
                         <div class="card-body">
-                            <?php echo form_open_multipart(($title == "Tambah Kajian") ? 'ustadz/add' : 'ustadz/edit/' . $ustadz['id_ustadz']); ?>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating" for="tgl">Tanggal</label>
-                                        <input id="tgl" type="date" class="form-control" name="tanggal" value="<?php echo date('Y-m-d'); ?>">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <!-- <label for="exampleFormControlSelect1">Example select</label> -->
-                                        <select class="form-control" data-style="btn btn-link" id="exampleFormControlSelect1">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">No. Telp</label>
-                                        <input type="text" class="form-control" name="no_telp" <?php if ($title == "Edit Kajian") echo "value='" . $ustadz['no_telp'] . "'"; ?>>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Facebook</label>
-                                        <input type="text" class="form-control" name="facebook" <?php if ($title == "Edit Kajian") echo "value='" . $ustadz['facebook'] . "'"; ?>>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Instagram</label>
-                                        <input type="text" class="form-control" name="instagram" <?php if ($title == "Edit Kajian") echo "value='" . $ustadz['instagram'] . "'"; ?>>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="form-group">
+                            <form method="post" action="<?php echo ($title == "Tambah Kajian") ? base_url('kajian/add') : base_url('/kajian/edit/') . $kajian['id_kajian']; ?>">
+                                <div class="row">
+                                    <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="bmd-label-floating">Alamat</label>
-                                            <textarea class="form-control" rows="2" name="alamat"> <?php if ($title == "Edit Kajian") echo  $ustadz['alamat']; ?></textarea>
+                                            <label class="bmd-label-floating" for="tgl">Tanggal</label>
+                                            <input id="tgl" type="date" class="form-control" name="tanggal" value="<?php echo date('Y-m-d'); ?>">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="bmd-label-floating">Biodata</label>
-                                            <textarea class="form-control" rows="6" name="bio"> <?php if ($title == "Edit Kajian") echo $ustadz['bio']; ?></textarea>
+                                            <select class="form-control" data-style="btn btn-link" name="ustadz">
+                                                <option value="null" selected disabled>--Pilih Ustadz--</option>
+                                                <?php foreach ($ustadz as $ust) : ?>
+                                                    <option value="<?php echo $ust['id_ustadz']; ?>"><?php echo $ust['nama']; ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <select class="form-control" data-style="btn btn-link" name="waktu">
+                                                <option value="null" selected disabled>--Pilih Waktu--</option>
+                                                <?php foreach ($waktu as $wkt) : ?>
+                                                    <option value="<?php echo $wkt['id_waktu']; ?>"><?php echo $wkt['waktu']; ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="fileinput fileinput-new pt-2" data-provides="fileinput">
-                                        <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 100%; height: 150px">
-                                            <?php if ($title == "Edit Kajian") : ?>
-                                                <img src="<?php echo base_url('assets/img/ustadz/') . $ustadz['foto']; ?>" alt="">
-                                            <?php else : ?>
-                                                <img src="<?php echo base_url('assets/img/ustadz/') . 'default.png'; ?>" alt="">
-                                            <?php endif; ?>
-                                        </div>
-                                        <div>
-                                            <span class="btn btn-primary btn-file">
-                                                <span class="fileinput-new">Pilih Foto</span>
-                                                <span class="fileinput-exists">Ganti</span>
-                                                <input type="file" name="foto">
-                                            </span>
-                                            <a href="#" class="btn btn-primary fileinput-exists" data-dismiss="fileinput">Hapus</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary pull-right">Simpan</button>
-                            <div class="clearfix"></div>
+                                <button type="submit" class="btn btn-primary pull-right">Simpan</button>
+                                <div class="clearfix"></div>
                             </form>
                         </div>
                     </div>
