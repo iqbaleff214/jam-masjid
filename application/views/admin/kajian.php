@@ -24,14 +24,13 @@
                                 </thead>
                                 <tbody>
                                     <?php $no = 0; ?>
-                                    <?php $hari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']; ?>
                                     <?php foreach ($kajian as $kjn) : ?>
                                         <tr>
                                             <td class="text-center"><?php echo ++$no; ?></td>
                                             <td><?php echo date('d/M/Y', $kjn['tanggal']); ?></td>
                                             <td><?php echo $kjn['nama']; ?></td>
                                             <td><?php echo $kjn['waktu']; ?></td>
-                                            <td><?php echo $hari[date('N', $kjn['tanggal'])]; ?></td>
+                                            <td><?php echo hari($kjn['tanggal']); ?></td>
                                             <td><?php echo pekan($kjn['tanggal']); ?></td>
                                             <td class="td-actions text-right">
                                                 <a href="<?php echo base_url('kajian/show/') . $kjn['id_kajian']; ?>" rel="tooltip" class="btn btn-info">

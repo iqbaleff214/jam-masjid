@@ -25,14 +25,14 @@ class Kajian extends CI_Controller
 
     public function show($id)
     {
-        $data['title']  = "Jadwal Kajian";
+        $data['title']  = "Lihat Kajian";
         $data['basic']  = $this->db->get('tb_pengurus')->row_array();
         $data['kajian'] = $this->kajian->getKajian($id);
 
         $this->load->view('layouts/admin/header', $data);
         $this->load->view('layouts/admin/sidebar');
         $this->load->view('layouts/admin/topbar');
-        $this->load->view('admin/ustadz_detail');
+        $this->load->view('admin/kajian_detail');
         $this->load->view('layouts/admin/footer');
     }
 
@@ -55,6 +55,25 @@ class Kajian extends CI_Controller
         }
     }
 
+    public function edit($id)
+    {
+        $this->__valid();
+        if ($this->form_validation->run()) {
+            $this->__edit($id);
+        } else {
+            $data['title']  = "Edit Kajian";
+            $data['basic']  = $this->db->get('tb_pengurus')->row_array();
+            $data['ustadz'] = $this->db->get('tb_ustadz')->result_array();
+            $data['waktu']  = $this->db->get('tb_waktu')->result_array();
+            $data['kajian'] = $this->kajian->getKajian($id);
+
+            $this->load->view('layouts/admin/header', $data);
+            $this->load->view('layouts/admin/sidebar');
+            $this->load->view('layouts/admin/topbar');
+            $this->load->view('admin/kajian_detail');
+            $this->load->view('layouts/admin/footer');
+        }
+    }
 
     public function delete($id)
     {
@@ -81,10 +100,15 @@ class Kajian extends CI_Controller
         $tgl  = strtotime($this->input->post('tanggal'));
         $ust  = $this->input->post('ustadz');
         $wkt  = $this->input->post('waktu');
+        $jdl  = $this->input->post('judul');
+        $dsk  = $this->input->post('deskripsi');
+
         $data       = [
             'tanggal'     => $tgl,
             'id_ustadz'   => $ust,
-            'id_waktu'    => $wkt
+            'id_waktu'    => $wkt,
+            'judul'       => $jdl,
+            'deskripsi'   => $dsk
         ];
         $add = $this->db->insert('tb_kajian', $data);
         if ($add) {
@@ -92,6 +116,31 @@ class Kajian extends CI_Controller
             redirect('kajian');
         } else {
             pesan('Data kajian gagal ditambahkan', 'error');
+            redirect('kajian');
+        }
+    }
+
+    private function __edit($id)
+    {
+        $tgl  = strtotime($this->input->post('tanggal'));
+        $ust  = $this->input->post('ustadz');
+        $wkt  = $this->input->post('waktu');
+        $jdl  = $this->input->post('judul');
+        $dsk  = $this->input->post('deskripsi');
+
+        $this->db->set('tanggal', $tgl);
+        $this->db->set('id_ustadz', $ust);
+        $this->db->set('id_waktu', $wkt);
+        $this->db->set('judul', $jdl);
+        $this->db->set('deskripsi', $dsk);
+
+        $this->db->where('id_kajian', $id);
+        $add = $this->db->update('tb_kajian');
+        if ($add) {
+            pesan('Data kajian berhasil diubah', 'success');
+            redirect('kajian');
+        } else {
+            pesan('Data kajian gagal diubah', 'error');
             redirect('kajian');
         }
     }
