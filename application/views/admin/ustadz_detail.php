@@ -17,7 +17,8 @@
                             </p>
                             <?php if ($title == "Lihat Ustadz") : ?>
                                 <a class="btn btn-round btn-sm float-right btn-primary" href="<?php echo base_url('ustadz'); ?>">
-                                    <i class="material-icons">arrow_back</i>
+                                    <!-- <i class="material-icons">arrow_back</i> -->
+                                    <i class="fa fa-arrow-left"></i>
                                     &nbsp;Kembali
                                 </a>
                             <?php endif; ?>
@@ -30,14 +31,15 @@
                     <div class="card">
                         <div class="card-header card-header-primary">
                             <a class="btn btn-round btn-sm float-right btn-primary" href="<?php echo base_url('ustadz'); ?>">
-                                <i class="material-icons">arrow_back</i>
+                                <!-- <i class="material-icons">arrow_back</i> -->
+                                <i class="fa fa-arrow-left"></i>
                                 &nbsp;Kembali
                             </a>
                             <h3 class="card-title"><?php echo ($title == "Tambah Ustadz") ? 'Ustadz Baru' : 'Edit Ustadz ' . $ustadz['nama']; ?></h3>
                             <!-- <p class="card-category">Complete your profile</p> -->
                         </div>
                         <div class="card-body">
-                            <?php echo form_open_multipart(($title == "Tambah Ustadz") ? 'ustadz/add' : 'ustadz/edit/' . $ustadz['id_ustadz']); ?>
+                            <?php echo form_open_multipart(($title == "Tambah Ustadz") ? base_url('ustadz/add') : base_url('ustadz/edit/') . $ustadz['id_ustadz']); ?>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">

@@ -13,6 +13,10 @@ class Ustadz extends CI_Controller
     {
         $data['title']  = "Ustadz";
         $data['basic']  = $this->db->get('tb_pengurus')->row_array();
+        if ($this->input->post('cari')) {
+            $this->db->like('nama', $this->input->post('cari'));
+            $this->db->or_like('alamat', $this->input->post('cari'));
+        }
         $data['ustadz'] = $this->db->get('tb_ustadz')->result_array();
 
         $this->load->view('layouts/admin/header', $data);

@@ -20,6 +20,9 @@ class Auth extends CI_Controller
                     ];
                     $this->session->set_userdata($data);
                     redirect(base_url('dashboard'));
+                } else {
+                    redirect('auth');
+                    pesan('Sandi salah!', 'error');
                 }
             }
         } else {

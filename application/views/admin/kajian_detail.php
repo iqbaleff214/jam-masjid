@@ -15,7 +15,8 @@
                             </p>
                             <?php if ($title == "Lihat Kajian") : ?>
                                 <a class="btn btn-round btn-sm float-right btn-primary" href="<?php echo base_url('kajian'); ?>">
-                                    <i class="material-icons">arrow_back</i>
+                                    <!-- <i class="material-icons">arrow_back</i> -->
+                                    <i class="fa fa-arrow-left"></i>
                                     &nbsp;Kembali
                                 </a>
                             <?php endif; ?>
@@ -28,7 +29,8 @@
                     <div class="card">
                         <div class="card-header card-header-primary">
                             <a class="btn btn-round btn-sm float-right btn-primary" href="<?php echo base_url('kajian'); ?>">
-                                <i class="material-icons">arrow_back</i>
+                                <!-- <i class="material-icons">arrow_back</i> -->
+                                <i class="fa fa-arrow-left"></i>
                                 &nbsp;Kembali
                             </a>
                             <h3 class="card-title"><?php echo ($title == "Tambah Kajian") ? 'Kajian Baru' : 'Edit Kajian ' . $kajian['nama']; ?></h3>
@@ -77,6 +79,19 @@
                                                     <option value="<?php echo $wkt['id_waktu']; ?>"><?php echo $wkt['waktu']; ?></option>
                                                 <?php endforeach; ?>
                                             </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input name="akhwat" class="form-check-input" type="checkbox" value="1" <?php if ($title == 'Edit Kajian' && $kajian['akhwat'] == 1) echo "checked"; ?>>
+                                                Khusus Akhwat
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
                                         </div>
                                     </div>
                                 </div>

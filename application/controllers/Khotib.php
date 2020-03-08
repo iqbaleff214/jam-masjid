@@ -14,7 +14,7 @@ class Khotib extends CI_Controller
     {
         $data['title']  = "Khotib Jumat";
         $data['basic']  = $this->db->get('tb_pengurus')->row_array();
-        $data['khotib'] = $this->khutbah->getKhutbahAll();
+        $data['khotib'] = $this->khutbah->getKhutbahAll($this->input->post('cari'));
 
         $this->load->view('layouts/admin/header', $data);
         $this->load->view('layouts/admin/sidebar');
@@ -82,6 +82,75 @@ class Khotib extends CI_Controller
         redirect('khotib');
     }
 
+    public function addmuadzin()
+    {
+        $this->form_validation->set_rules('muadzin', 'Muadzin', 'trim|required', [
+            'required' => 'Nama tidak boleh kosong!'
+        ]);
+        if ($this->form_validation->run()) {
+            $data = [
+                'muadzin'   => $this->input->post('muadzin'),
+                'alamat'    => $this->input->post('alamat')
+            ];
+            if ($this->db->insert('tb_muadzin', $data)) {
+                pesan('Data Muadzin berhasil ditambahkan', 'success');
+                redirect('dashboard');
+            } else {
+                pesan('Data Muadzin gagal ditambahkan', 'error');
+                redirect('dashboard');
+            }
+        } else {
+            $data['title']  = "Tambah Muadzin";
+            $data['basic']  = $this->db->get('tb_pengurus')->row_array();
+
+            $this->load->view('layouts/admin/header', $data);
+            $this->load->view('layouts/admin/sidebar');
+            $this->load->view('layouts/admin/topbar');
+            $this->load->view('admin/muadzin_detail');
+            $this->load->view('layouts/admin/footer');
+        }
+    }
+
+    public function editmuadzin($id)
+    {
+        $this->form_validation->set_rules('muadzin', 'Muadzin', 'trim|required', [
+            'required' => 'Nama tidak boleh kosong!'
+        ]);
+        if ($this->form_validation->run()) {
+            $this->db->set('muadzin', $this->input->post('muadzin'));
+            $this->db->set('alamat', $this->input->post('alamat'));
+            $this->db->where('id_muadzin', $id);
+            if ($this->db->update('tb_muadzin')) {
+                pesan('Data Muadzin berhasil diubah', 'success');
+                redirect('dashboard');
+            } else {
+                pesan('Data Muadzin gagal diubah', 'error');
+                redirect('dashboard');
+            }
+        } else {
+            $data['title']  = "Edit Muadzin";
+            $data['basic']  = $this->db->get('tb_pengurus')->row_array();
+            $data['muadzin']  = $this->db->get_where('tb_muadzin', ['id_muadzin' => $id])->row_array();
+
+            $this->load->view('layouts/admin/header', $data);
+            $this->load->view('layouts/admin/sidebar');
+            $this->load->view('layouts/admin/topbar');
+            $this->load->view('admin/muadzin_detail');
+            $this->load->view('layouts/admin/footer');
+        }
+    }
+
+    public function deletemuadzin($id)
+    {
+        if ($this->db->delete('tb_khutbah', ['id_muadzin' => $id])) {
+            $this->db->delete('tb_muadzin', ['id_muadzin' => $id]);
+            pesan('Data Muadzin berhasil dihapus', 'success');
+        } else {
+            pesan('Data gagal dihapus', 'error');
+        }
+        redirect('dashboard');
+    }
+
     private function __valid()
     {
         $this->form_validation->set_rules('tanggal', 'Surel', 'trim|required', [
@@ -108,6 +177,7 @@ class Khotib extends CI_Controller
                 'id_muadzin'  => $mzn,
             ];
             $add = $this->db->insert('tb_khutbah', $data);
+
             if ($add) {
                 pesan('Data khotib berhasil ditambahkan', 'success');
                 redirect('khotib');

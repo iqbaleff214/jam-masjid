@@ -4,7 +4,10 @@
             &copy;
             <script>
                 document.write(new Date().getFullYear())
-            </script>, made with <i class="material-icons">favorite</i> by
+            </script>, made with 
+            <!-- <i class="material-icons">favorite</i> -->
+            <i class="fa fa-heart"></i>
+             by
             <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> and developed by abu.mubarmij@gmail.com.
         </div>
     </div>
@@ -37,23 +40,9 @@
     $(document).ready(function() {
         // Javascript method's body can be found in assets/js/demos.js
         md.initDashboardPageCharts();
+        console.log(window.location.href);
+        
     });
-
-    function showNotification(from, align) {
-
-        $.notify({
-            icon: "add_alert",
-            message: "Hah to <b>Material Dashboard Pro</b> - a beautiful freebie for every web developer."
-
-        }, {
-            type: 'success',
-            timer: 4000,
-            placement: {
-                from: from,
-                align: align
-            }
-        });
-    }
 </script>
 </body>
 

@@ -12,11 +12,11 @@
                 <span class="navbar-toggler-icon icon-bar"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end">
-                <form class="navbar-form">
+                <form class="navbar-form" action="" method="post">
                     <div class="input-group no-border">
-                        <input type="text" value="" class="form-control" placeholder="Pencarian...">
+                        <input type="text" class="form-control" placeholder="Pencarian..." name="cari">
                         <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                            <i class="material-icons">search</i>
+                            <i class="fas fa-search"></i>
                             <div class="ripple-container"></div>
                         </button>
                     </div>
@@ -24,7 +24,8 @@
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="material-icons">person</i>
+                            <!-- <i class="material-icons">person</i> -->
+                            <i class="fas fa-mosque"></i>
                             <p class="d-lg-none d-md-block">
                                 Account
                             </p>
